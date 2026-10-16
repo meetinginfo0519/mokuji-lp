@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MOKUJI｜ビジネス書は、目次から読めばいい。</title>
+<meta name="description" content="MOKUJIは、話題のビジネス書を目次単位で要約し、1冊15分の音声で届ける読書サブスクです（マーケティング練習用の架空サービス）。">
+<!-- 架空サービスのため検索エンジンに載せない -->
+<meta name="robots" content="noindex, nofollow">
+
+<!-- ===== Google Tag Manager ===== -->
+<!-- GTM-XXXXXXX を自分のコンテナIDに置き換える（このファイル内に2か所） -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<!-- ===== End Google Tag Manager ===== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=IBM+Plex+Sans+JP:wght@400;500;700&display=swap">
+<style>
+:root{
+  --ink:#1B1F2A; --ink-2:#3D4250; --muted:#5A5F6B;
+  --paper:#FAFAF7; --sand:#F0EEE7; --line:#D6D3C9; --line-2:#E4E2DA;
+  --green:#1F4D3F; --green-2:#2A5E4E; --green-soft:#CFE0D8;
+  --accent:#E8B04B; --accent-soft:#E8B04B55;
+  --display:'Zen Kaku Gothic New',sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans JP',sans-serif;font-size:16px;line-height:1.75}
+a{color:var(--green)} a:hover{color:#13342A}
+h1,h2,h3{font-family:var(--display);margin:0}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.section{padding:96px 0}
+.sand{background:var(--sand)}
+.eyebrow{margin:0;font-size:14px;font-weight:700;letter-spacing:.12em;color:var(--green)}
+.h2{margin-top:8px;font-weight:900;font-size:clamp(28px,3.4vw,40px);line-height:1.35}
+.grid{margin-top:44px;display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.card{background:#fff;border-radius:20px;padding:28px}
+.card-title{margin:0;font-family:var(--display);font-weight:700;font-size:20px}
+.sub{margin:10px 0 0;color:var(--ink-2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 28px;border-radius:999px;font-weight:700;font-size:17px;text-decoration:none;border:1.5px solid transparent;font-family:inherit;cursor:pointer}
+.btn-accent{background:var(--accent);color:var(--ink)} .btn-accent:hover{color:var(--ink);filter:brightness(.96)}
+.btn-dark{background:var(--ink);color:#fff;min-height:44px;padding:0 20px;font-size:15px} .btn-dark:hover{color:#fff}
+.btn-outline{border-color:var(--ink);color:var(--ink)} .btn-outline:hover{color:var(--ink);background:#fff}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* header */
+header{border-bottom:1px solid var(--line-2)}
+.nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-top:18px;padding-bottom:18px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.logo span{font-family:var(--display);font-weight:900;font-size:22px;letter-spacing:.08em}
+nav{display:flex;flex-wrap:wrap;align-items:center;gap:8px 28px;font-size:15px}
+nav a:not(.btn){color:var(--ink);text-decoration:none}
+
+/* hero */
+.hero{display:flex;flex-wrap:wrap;gap:56px;align-items:center;padding-top:88px;padding-bottom:96px}
+.hero-copy{flex:1 1 460px;min-width:0}
+.pill{display:inline-block;margin:0 0 20px;padding:4px 14px;border-radius:999px;background:var(--accent-soft);font-size:14px;font-weight:700}
+.hero h1{font-weight:900;font-size:clamp(36px,5vw,60px);line-height:1.25}
+.lead{margin:28px 0 0;font-size:18px;color:var(--ink-2);max-width:520px}
+.actions{margin-top:36px;display:flex;flex-wrap:wrap;gap:14px}
+.note{margin:18px 0 0;font-size:13px;color:var(--muted)}
+.player-wrap{flex:1 1 380px;min-width:0;display:flex;justify-content:center}
+.player{width:100%;max-width:400px;background:var(--green);border-radius:28px;padding:28px;color:#fff}
+.player .label{margin:0;font-size:13px;letter-spacing:.1em;color:var(--green-soft)}
+.player .title{margin:6px 0 0;font-family:var(--display);font-weight:700;font-size:22px;line-height:1.4}
+.player .meta{margin:2px 0 0;font-size:14px;color:var(--green-soft)}
+.chapters{margin:24px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.chapters li{display:flex;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:12px;background:var(--green-2)}
+.chapters li span:last-child{color:var(--green-soft)}
+.chapters li.now{background:var(--accent);color:var(--ink);font-weight:700}
+.chapters li.now span:last-child{color:var(--ink)}
+.bar{margin-top:22px;height:6px;border-radius:3px;background:var(--green-2)}
+.bar div{width:38%;height:6px;border-radius:3px;background:var(--accent)}
+
+/* features */
+.features{margin-top:48px;display:grid;gap:40px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.features h3{margin-top:18px;font-weight:700;font-size:22px}
+
+/* how */
+.how{background:var(--ink);color:#fff}
+.how .eyebrow{color:var(--accent)}
+.steps{margin:48px 0 0;padding:0;list-style:none;display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.steps li{border-top:2px solid #fff;padding-top:24px}
+.steps .num{margin:0;font-family:var(--display);font-weight:900;font-size:44px;line-height:1;color:var(--accent)}
+.steps .t{margin:16px 0 0;font-weight:700;font-size:20px}
+.steps .d{margin:8px 0 0;color:#C9CCD4}
+
+/* pricing */
+.plans{margin-top:48px;display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.plan{border:1.5px solid var(--line);border-radius:24px;padding:32px;display:flex;flex-direction:column;gap:16px;background:#fff}
+.plan.pop{border:2px solid var(--green)}
+.plan-name{margin:0;display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+.badge{font-size:12px;padding:2px 10px;border-radius:999px;background:var(--green);color:#fff}
+.price{margin:0;font-family:var(--display);font-weight:900;font-size:40px;line-height:1}
+.price small{font-size:16px;font-weight:500}
+.plan ul{margin:0;padding-left:20px;color:var(--ink-2);flex-grow:1}
+.plan .btn{min-height:48px;font-size:16px}
+
+/* voice / faq */
+figure{margin:0}
+blockquote{margin:0;font-size:17px}
+figcaption{margin-top:16px;font-size:14px;color:var(--muted)}
+.faq{max-width:860px}
+dl{margin:40px 0 0}
+dl > div{padding:22px 0;border-top:1px solid var(--line)}
+dl > div:last-child{border-bottom:1px solid var(--line)}
+dt{font-weight:700;font-size:18px}
+dd{margin:8px 0 0;color:var(--ink-2)}
+
+/* cta */
+.cta{padding:0 0 96px}
+.cta-box{background:var(--green);border-radius:32px;padding:64px 32px;color:#fff;text-align:center}
+.cta-box h2{font-weight:900;font-size:clamp(26px,3.4vw,40px);line-height:1.4}
+.cta-box p{margin:14px auto 0;max-width:520px;color:#DCE8E2}
+#signup-form{margin:32px auto 0;max-width:520px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+#signup-form input{flex:1 1 260px;min-height:52px;padding:0 20px;border-radius:999px;border:none;font-size:16px;font-family:inherit;color:var(--ink)}
+#signup-form button{min-height:52px;font-size:16px;border:none}
+.thanks{display:none;margin-top:24px !important;font-weight:700;color:#fff !important}
+
+footer{border-top:1px solid var(--line-2)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:32px;padding-bottom:32px;font-size:13px;color:var(--muted)}
+.foot b{font-family:var(--display);font-weight:900;letter-spacing:.08em;color:var(--ink)}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="#1B1F2A" stroke-width="2" aria-hidden="true"><rect x="4" y="4" width="22" height="22" rx="4"/><path d="M9 11h12M9 15h9M9 19h12"/></svg>
+      <span>MOKUJI</span>
+    </a>
+    <nav aria-label="メインメニュー">
+      <a href="#features">特長</a>
+      <a href="#how">使い方</a>
+      <a href="#pricing">料金</a>
+      <a href="#faq">よくある質問</a>
+      <a class="btn btn-dark" href="#cta" data-cta="header_trial">14日間無料で試す</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section id="top" class="wrap hero">
+  <div class="hero-copy">
+    <p class="pill">忙しい20〜30代ビジネスパーソンへ</p>
+    <h1>ビジネス書は、<br>目次から読めばいい。</h1>
+    <p class="lead">MOKUJIは、話題のビジネス書を「目次」単位で要約し、1冊15分の音声で届ける読書サブスクです。通勤中に、要点だけを。気になった章だけを深く。</p>
+    <div class="actions">
+      <a class="btn btn-accent" href="#cta" data-cta="hero_trial">14日間無料で試す</a>
+      <a class="btn btn-outline" href="#how" data-cta="hero_how">使い方を見る</a>
+    </div>
+    <p class="note">無料期間中に解約すれば料金はかかりません</p>
+  </div>
+  <div class="player-wrap">
+    <div class="player">
+      <p class="label">いま聴いている本</p>
+      <p class="title">[書籍タイトル]</p>
+      <p class="meta">[著者名]　・　全6章　・　15分</p>
+      <ol class="chapters">
+        <li><span>第1章　問いを立てる</span><span>2:30</span></li>
+        <li class="now"><span>第2章　仮説で動く</span><span>再生中</span></li>
+        <li><span>第3章　数字で語る</span><span>2:10</span></li>
+        <li><span>第4章　人を巻き込む</span><span>2:45</span></li>
+      </ol>
+      <div class="bar"><div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section sand">
+  <div class="wrap">
+    <p class="eyebrow">PROBLEM</p>
+    <h2 class="h2">こんな「積読」、ありませんか？</h2>
+    <div class="grid">
+      <div class="card"><p class="card-title">買ったまま、読めていない</p><p class="sub">話題の本を買っても、まとまった時間が取れずに本棚に積まれていく。</p></div>
+      <div class="card"><p class="card-title">読んでも、すぐ忘れる</p><p class="sub">最後まで読み切っても、何が大事だったのか翌週には思い出せない。</p></div>
+      <div class="card"><p class="card-title">どれを読むべきかわからない</p><p class="sub">新刊が多すぎて、自分の仕事に役立つ1冊を選べない。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="section">
+  <div class="wrap">
+    <p class="eyebrow">FEATURES</p>
+    <h2 class="h2">MOKUJIが選ばれる3つの理由</h2>
+    <div class="features">
+      <div>
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#1F4D3F" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="7" y="6" width="30" height="32" rx="4"/><path d="M13 15h18M13 22h12M13 29h16"/></svg>
+        <h3>01　目次単位で、つまみ聴き</h3>
+        <p class="sub">1章あたり約2〜3分。全体を聴かなくても、今の自分に必要な章だけを選んで聴けます。</p>
+      </div>
+      <div>
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#1F4D3F" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M8 26v-4a14 14 0 0 1 28 0v4"/><rect x="6" y="26" width="8" height="11" rx="3"/><rect x="30" y="26" width="8" height="11" rx="3"/></svg>
+        <h3>02　1冊15分の音声要約</h3>
+        <p class="sub">通勤、移動、家事の時間がそのまま読書時間に。倍速再生とオフライン再生にも対応。</p>
+      </div>
+      <div>
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#1F4D3F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 6l4.5 9.5L37 17l-7.5 7 2 10.5L22 29.5 12.5 34.5l2-10.5L7 17l10.5-1.5z"/></svg>
+        <h3>03　職種別のおすすめ</h3>
+        <p class="sub">営業・企画・マネージャーなど職種と悩みに合わせて、毎週3冊を厳選してお届けします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="section how">
+  <div class="wrap">
+    <p class="eyebrow">HOW IT WORKS</p>
+    <h2 class="h2">はじめ方は、3ステップ</h2>
+    <ol class="steps">
+      <li><p class="num">1</p><p class="t">アプリをダウンロード</p><p class="d">メールアドレスだけで登録できます。14日間は全機能を無料で利用可能。</p></li>
+      <li><p class="num">2</p><p class="t">職種と悩みを選ぶ</p><p class="d">3つの質問に答えるだけで、あなた向けの本棚ができあがります。</p></li>
+      <li><p class="num">3</p><p class="t">気になる章から聴く</p><p class="d">目次を眺めて、ピンときた章をタップ。聴いた内容はメモとして自動で保存されます。</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="pricing" class="section">
+  <div class="wrap">
+    <p class="eyebrow">PRICING</p>
+    <h2 class="h2">料金プラン</h2>
+    <div class="plans">
+      <div class="plan">
+        <p class="plan-name">ライト</p>
+        <p class="price">¥680<small>／月</small></p>
+        <ul><li>毎月5冊まで聴き放題</li><li>倍速・オフライン再生</li></ul>
+        <a class="btn btn-outline" href="#cta" data-cta="pricing_light">ライトで始める</a>
+      </div>
+      <div class="plan pop">
+        <p class="plan-name">スタンダード<span class="badge">いちばん人気</span></p>
+        <p class="price">¥1,280<small>／月</small></p>
+        <ul><li>全タイトル聴き放題</li><li>職種別おすすめ（毎週3冊）</li><li>聴いた内容の自動メモ</li></ul>
+        <a class="btn btn-accent" href="#cta" data-cta="pricing_standard">14日間無料で試す</a>
+      </div>
+      <div class="plan">
+        <p class="plan-name">チーム</p>
+        <p class="price">¥980<small>／人・月</small></p>
+        <ul><li>スタンダードの全機能</li><li>チーム内での本棚共有</li><li>5名から導入可能</li></ul>
+        <a class="btn btn-outline" href="#cta" data-cta="pricing_team">資料をダウンロード</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section sand">
+  <div class="wrap">
+    <p class="eyebrow">VOICE</p>
+    <h2 class="h2">利用者の声</h2>
+    <div class="grid">
+      <figure class="card"><blockquote>「片道40分の通勤が、毎朝1冊分の学びの時間になりました。」</blockquote><figcaption>法人営業・28歳</figcaption></figure>
+      <figure class="card"><blockquote>「会議の前に関係する章だけ聴けるので、議論の引き出しが増えました。」</blockquote><figcaption>マーケティング・32歳</figcaption></figure>
+      <figure class="card"><blockquote>「チームで同じ本を聴いて、週1回の朝会で感想を共有しています。」</blockquote><figcaption>マネージャー・36歳</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="section">
+  <div class="wrap faq">
+    <p class="eyebrow">FAQ</p>
+    <h2 class="h2">よくある質問</h2>
+    <dl>
+      <div><dt>Q. 無料期間が終わると自動で課金されますか？</dt><dd>はい。無料期間終了日の前日までにアプリの設定画面から解約すれば、料金は一切かかりません。</dd></div>
+      <div><dt>Q. どんな本が聴けますか？</dt><dd>ビジネス・自己啓発・テクノロジーを中心に、[収録冊数]冊以上を収録しています。毎週新しいタイトルを追加しています。</dd></div>
+      <div><dt>Q. 要約だけで本当に身につきますか？</dt><dd>MOKUJIは「全部読む前の地図」として設計しています。気になった章は原書の該当ページへすぐ移動できるので、深く読みたい部分にだけ時間を使えます。</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section id="cta" class="cta">
+  <div class="wrap">
+    <div class="cta-box">
+      <h2>明日の通勤から、1冊。</h2>
+      <p>まずは14日間、全タイトルを無料でお試しください。</p>
+      <!-- HubSpotの「収集フォーム」で自動取り込みされるフォーム（id・name属性は変えない） -->
+      <form id="signup-form" name="mokuji-trial-signup">
+        <label class="sr-only" for="email">メールアドレス</label>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="メールアドレス" required>
+        <button class="btn btn-accent" type="submit">無料で始める</button>
+      </form>
+      <p class="thanks" id="thanks" role="status">ご登録ありがとうございます。確認メールをお送りしました。</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <b>MOKUJI</b>
+    <span>※ マーケティング練習用の架空のサービスです</span>
+  </div>
+</footer>
+
+<script>
+  // ===== GTM用のイベント送信（GA4のイベントとして計測する） =====
+  window.dataLayer = window.dataLayer || [];
+
+  // CTAクリック：どのボタンが押されたかを cta_id で送る
+  document.querySelectorAll('[data-cta]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      window.dataLayer.push({ event: 'cta_click', cta_id: el.dataset.cta, cta_text: el.textContent.trim() });
+    });
+  });
+
+  // フォーム送信：GA4推奨イベント generate_lead
+  var form = document.getElementById('signup-form');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    window.dataLayer.push({ event: 'generate_lead', form_id: 'mokuji-trial-signup' });
+    form.style.display = 'none';
+    document.getElementById('thanks').style.display = 'block';
+  });
+</script>
+
+<!-- ===== HubSpot トラッキングコード（株式会社 meeting technology / Hub ID 49098911） ===== -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/49098911.js"></script>
+<!-- ===== End HubSpot ===== -->
+</body>
+</html>
