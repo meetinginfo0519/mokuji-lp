@@ -208,8 +208,9 @@ footer{border-top:1px solid var(--line-2)}
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TN5C5GR8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<!-- ラジオ対談verの音声（リポジトリ直下の gakumon.m4a） -->
+<!-- 本編の音声（リポジトリ直下）：ラジオ対談ver ／ 朗読ver -->
 <audio id="radio-audio" src="gakumon.m4a" preload="metadata"></audio>
+<audio id="reading-audio" src="gakumon-reading.wav" preload="metadata"></audio>
 
 <header>
   <div class="wrap nav">
@@ -246,7 +247,7 @@ footer{border-top:1px solid var(--line-2)}
     <div class="player mplayer" data-pid="hero">
       <p class="label">いま聴ける本</p>
       <p class="title">学問のすゝめ</p>
-      <p class="meta">福澤諭吉　・　全6章　・　約15分</p>
+      <p class="meta">福澤諭吉　・　全6章</p>
       <div class="mode-tabs" role="tablist" aria-label="再生モード">
         <button type="button" class="tab" role="tab" data-mode="radio" aria-selected="true">🎧 ラジオ対談ver</button>
         <button type="button" class="tab" role="tab" data-mode="read" aria-selected="false">📖 朗読ver（テキスト連動）</button>
@@ -339,7 +340,7 @@ footer{border-top:1px solid var(--line-2)}
           <li><a href="#ch-4" data-ch="4" data-cta="toc_ch4">第4章　実学のすすめ</a></li>
           <li><a href="#ch-5" data-ch="5" data-cta="toc_summary">まとめ　明日から何を変えるか</a></li>
         </ol>
-        <p class="total">全6章。目次をタップすると本編の該当章へ移動します。朗読verでは、読み上げ中の章がここに表示されます。</p>
+        <p class="total">全6章。目次をタップすると本編の該当章へ移動します。朗読verでは、再生中の章がここに表示されます。</p>
       </aside>
 
       <article class="book-body">
@@ -426,7 +427,7 @@ footer{border-top:1px solid var(--line-2)}
           <h3 class="block-label">📖 本編の全文テキスト<small>全6章・目次連動</small></h3>
           <p class="ft-title rd" data-ch="0" style="margin-top:18px">【MOKUJI 本編】15分でわかる『学問のすゝめ』（福澤諭吉）</p>
           <p class="ft-sub rd" data-ch="0">〜現代のビジネスパーソンが学ぶべき「自立」の教科書〜</p>
-          <p class="ft-note">朗読verで再生すると、読み上げ中の段落がハイライトされます。各章の「この章から朗読」からも再生できます。</p>
+          <p class="ft-note">朗読verで再生すると、読んでいる段落がハイライトされます。各章の「この章から朗読」から、その章の頭から聴けます。</p>
 
           <section id="ch-0" class="chapter" data-ch="0">
             <div class="ch-head"><h4 class="rd" data-ch="0">はじめに：有名な一文の「続き」を知っていますか？</h4><button type="button" class="ch-play" data-ch="0">▶ この章から朗読</button></div>
@@ -617,32 +618,43 @@ footer{border-top:1px solid var(--line-2)}
 </script>
 
 <script>
-  // ===== 本編プレイヤー（ラジオ対談ver：<audio> ／ 朗読ver：Web Speech API） =====
+  // ===== 本編プレイヤー（ラジオ対談ver：gakumon.m4a ／ 朗読ver：gakumon-reading.wav） =====
   (function () {
     var CH_NAMES = ['はじめに', '第1章　天は人の上に人を造らず', '第2章　学ぶ人と学ばない人の差', '第3章　一身独立して一国独立す', '第4章　実学のすすめ', 'まとめ　明日から何を変えるか'];
 
-    // ラジオ対談verの各章の開始位置（秒）。音声の章の区切りがわかったら入れてください。
-    // 例：[0, 95, 250, 400, 590, 780]　すべて入れると、章ボタンでその位置から再生できます。
+    // 朗読ver（gakumon-reading.wav）で、全文テキストの各段落が始まる位置（秒）。
+    // 全文テキストの .rd 要素（タイトル・見出し・段落）と同じ順番・同じ数（29個）。
+    // 音声を作り直したときは、ここの数字を合わせてください。
+    var READ_PARA_TIMES = [
+      0, 6.3, 10.7, 14.9, 18.6, 25.9, 39.1, 56.4,   // タイトル〜はじめに
+      71.5, 74.5, 82.4, 96.0,                       // 第1章
+      122.5, 125.4, 147.3,                          // 第2章
+      174.7, 178.1, 189.8, 206.1,                   // 第3章
+      235.2, 237.4, 255.1, 268.9,                   // 第4章
+      287.3, 289.7, 299.3, 305.1, 311.4, 317.7      // まとめ
+    ];
+
+    // ラジオ対談ver（gakumon.m4a）の各章の開始位置（秒）。わかったら入れてください。
+    // 例：[0, 95, 250, 400, 590, 780]　6つすべて入れると、章ボタンでその位置から再生できます。
     var RADIO_CHAPTER_TIMES = [null, null, null, null, null, null];
 
-    var audio = document.getElementById('radio-audio');
+    var audios = { radio: document.getElementById('radio-audio'), read: document.getElementById('reading-audio') };
+    var errors = { radio: false, read: false };
     var players = Array.prototype.slice.call(document.querySelectorAll('.mplayer'));
     var paras = Array.prototype.slice.call(document.querySelectorAll('#fulltext .rd'));
     var tocLinks = Array.prototype.slice.call(document.querySelectorAll('.toc a[data-ch]'));
-    var synth = ('speechSynthesis' in window) ? window.speechSynthesis : null;
-
-    var state = { mode: 'radio', rate: 1, readIdx: 0, reading: false, pid: 'hero', audioError: false };
-    var token = 0;        // 読み上げの世代（停止・切替時に古い読み上げのイベントを無視する）
-    var jaVoice = null;
+    var state = { mode: 'radio', rate: 1, pid: 'hero', para: -1 };
     var dragging = false;
 
-    // 章ごとの最初の段落
+    // 章ごとの最初の段落（見出し）
     var chapterStart = CH_NAMES.map(function (_, ch) {
       for (var i = 0; i < paras.length; i++) {
         if (paras[i].tagName === 'H4' && +paras[i].dataset.ch === ch) return i;
       }
       return 0;
     });
+
+    function cur() { return audios[state.mode]; }
 
     function track(action, extra) {
       var o = { event: 'player_action', player_action: action, player_mode: state.mode, player_id: state.pid, playback_rate: state.rate };
@@ -656,58 +668,74 @@ footer{border-top:1px solid var(--line-2)}
       return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2);
     }
 
-    function radioChapter() {
-      for (var i = 0; i < RADIO_CHAPTER_TIMES.length; i++) if (RADIO_CHAPTER_TIMES[i] == null) return -1;
-      var c = 0;
-      for (var j = 0; j < RADIO_CHAPTER_TIMES.length; j++) if (audio.currentTime >= RADIO_CHAPTER_TIMES[j]) c = j;
-      return c;
+    function radioTimesReady() {
+      return RADIO_CHAPTER_TIMES.every(function (t) { return t != null; });
+    }
+
+    // 朗読verの再生位置から、いま読んでいる段落を求める
+    function paraAt(t) {
+      var idx = 0;
+      for (var i = 0; i < READ_PARA_TIMES.length && i < paras.length; i++) {
+        if (t + 0.05 >= READ_PARA_TIMES[i]) idx = i;
+      }
+      return idx;
     }
 
     function currentChapter() {
-      if (state.mode === 'read') return (state.reading || state.readIdx > 0) ? +paras[state.readIdx].dataset.ch : -1;
-      return audio.paused && audio.currentTime === 0 ? -1 : radioChapter();
+      var a = cur();
+      if (a.paused && a.currentTime === 0) return -1;
+      if (state.mode === 'read') return +paras[paraAt(a.currentTime)].dataset.ch;
+      if (!radioTimesReady()) return -1;
+      var c = 0;
+      for (var j = 0; j < RADIO_CHAPTER_TIMES.length; j++) if (a.currentTime >= RADIO_CHAPTER_TIMES[j]) c = j;
+      return c;
+    }
+
+    // ----- 全文テキストのハイライト -----
+    function syncHighlight() {
+      var a = audios.read;
+      var i = (state.mode === 'read' && !(a.paused && a.currentTime === 0)) ? paraAt(a.currentTime) : -1;
+      if (i === state.para) return;
+      state.para = i;
+      paras.forEach(function (p, j) { p.classList.toggle('reading', j === i); });
+      if (i >= 0 && state.pid === 'book' && !a.paused) {
+        paras[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     }
 
     // ----- 画面の更新（2つのプレイヤーを同じ状態に揃える） -----
     function render() {
+      var a = cur();
       var ch = currentChapter();
+      var err = errors[state.mode];
+      var playing = !a.paused;
+      syncHighlight();
+
       players.forEach(function (p) {
         p.querySelectorAll('.tab').forEach(function (t) {
           t.setAttribute('aria-selected', t.dataset.mode === state.mode ? 'true' : 'false');
         });
         var play = p.querySelector('.p-play');
+        var stop = p.querySelector('.p-stop');
         var seek = p.querySelector('.p-seek');
-        var time = p.querySelector('.p-time');
-        var status = p.querySelector('.p-status');
-        var playing, msg;
+        var msg;
 
-        if (state.mode === 'radio') {
-          playing = !audio.paused;
-          play.disabled = state.audioError;
-          seek.disabled = state.audioError;
-          seek.step = '0.1';
-          seek.max = isFinite(audio.duration) ? audio.duration : 0;
-          if (!dragging) seek.value = audio.currentTime;
-          time.textContent = fmt(audio.currentTime) + ' / ' + fmt(audio.duration);
-          if (state.audioError) msg = '音声を読み込めませんでした。時間をおいて再度お試しください。';
-          else if (playing) msg = '🎧 再生中' + (ch >= 0 ? '：' + CH_NAMES[ch] : '：ラジオ対談ver');
-          else msg = '対談形式で、本の要点をわかりやすく解説します。';
+        play.disabled = err;
+        stop.disabled = err;
+        seek.disabled = err;
+        seek.max = isFinite(a.duration) ? a.duration : 0;
+        if (!dragging) seek.value = a.currentTime;
+        p.querySelector('.p-time').textContent = fmt(a.currentTime) + ' / ' + fmt(a.duration);
+
+        if (err) msg = '音声を読み込めませんでした。時間をおいて再度お試しください。';
+        else if (state.mode === 'radio') {
+          msg = playing ? '🎧 再生中' + (ch >= 0 ? '：' + CH_NAMES[ch] : '：ラジオ対談ver') : '対談形式で、本の要点をわかりやすく解説します。';
         } else {
-          playing = state.reading;
-          play.disabled = !synth;
-          seek.disabled = !synth;
-          seek.step = '1';
-          seek.max = paras.length - 1;
-          if (!dragging) seek.value = state.readIdx;
-          time.textContent = (state.readIdx + 1) + ' / ' + paras.length + ' 段落';
-          var c = +paras[state.readIdx].dataset.ch;
-          if (!synth) msg = 'お使いのブラウザは音声読み上げに対応していません。全文テキストをご覧ください。';
-          else if (playing) msg = '📖 読み上げ中：' + CH_NAMES[c];
-          else msg = '全文テキストを1段落ずつ読み上げます（読み上げ中の段落をハイライト）。';
+          msg = playing ? '📖 朗読中：' + CH_NAMES[ch] : '本編の全文を朗読します。読んでいる段落は全文テキストでハイライトされます。';
         }
+        p.querySelector('.p-status').textContent = msg;
         play.textContent = playing ? '❚❚ 一時停止' : '▶ 再生';
         play.setAttribute('aria-label', playing ? '一時停止' : '再生');
-        status.textContent = msg;
 
         p.querySelectorAll('.p-speeds button').forEach(function (b) {
           b.classList.toggle('on', +b.dataset.rate === state.rate);
@@ -716,122 +744,49 @@ footer{border-top:1px solid var(--line-2)}
           b.classList.toggle('now', +b.dataset.ch === ch);
         });
       });
-      tocLinks.forEach(function (a) {
-        a.classList.toggle('active', state.mode === 'read' && +a.dataset.ch === ch);
+      tocLinks.forEach(function (l) {
+        l.classList.toggle('active', state.mode === 'read' && +l.dataset.ch === ch);
       });
     }
 
-    // ----- 朗読ver -----
-    function pickVoice() {
-      if (!synth) return;
-      var vs = synth.getVoices().filter(function (v) { return /^ja/i.test(v.lang); });
-      jaVoice = vs.filter(function (v) { return /Google|Kyoko|Otoya|Nanami|Haruka|Ayumi/i.test(v.name); })[0] || vs[0] || null;
-    }
-    if (synth) {
-      pickVoice();
-      if ('onvoiceschanged' in synth) synth.onvoiceschanged = pickVoice;
-    }
+    // ----- 音声イベント -----
+    Object.keys(audios).forEach(function (m) {
+      var a = audios[m];
+      ['play', 'pause', 'timeupdate', 'loadedmetadata', 'durationchange', 'seeked'].forEach(function (ev) {
+        a.addEventListener(ev, function () { if (m === state.mode) render(); });
+      });
+      a.addEventListener('ended', function () {
+        if (m !== state.mode) return;
+        a.currentTime = 0;
+        track('complete');
+        render();
+      });
+      a.addEventListener('error', function () { errors[m] = true; render(); });
+    });
 
-    // 読み上げ用にテキストを整える（読みがなの重複や記号を除く）
-    function speechText(el) {
-      return el.textContent
-        .replace(/（じつがく）|（どくりつじそん）/g, '')
-        .replace(/すゝめ/g, 'すすめ')
-        .replace(/人学ばざれば智なし、智なき者/g, 'ひとまなばざれば ちなし、ちなきもの')
-        .replace(/……/g, '、')
-        .replace(/[■〜]/g, ' ');
-    }
-
-    // 長い段落は文ごとに分けて読む（ブラウザによる長文の途中停止を防ぐ）
-    function chunks(text) {
-      var arr = text.match(/[^。！？]+[。！？」』]*/g) || [text];
-      return arr.map(function (s) { return s.trim(); }).filter(Boolean);
-    }
-
-    function highlight(i) {
-      paras.forEach(function (p, j) { p.classList.toggle('reading', j === i); });
-      if (state.pid === 'book' && i >= 0) {
-        paras[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }
-
-    function speakFrom(i) {
-      if (!synth) return;
-      if (!audio.paused) audio.pause();
-      token++;
-      var my = token;
-      synth.cancel();
-      state.reading = true;
-      state.readIdx = i;
-      highlight(i);
-      render();
-      var parts = chunks(speechText(paras[i]));
-      var k = 0;
-      function next() {
-        if (my !== token) return;
-        if (k >= parts.length) {
-          if (i + 1 < paras.length) { speakFrom(i + 1); }
-          else {
-            state.reading = false; state.readIdx = 0;
-            highlight(-1); render(); track('complete');
-          }
-          return;
-        }
-        var u = new SpeechSynthesisUtterance(parts[k++]);
-        u.lang = 'ja-JP';
-        if (jaVoice) u.voice = jaVoice;
-        u.rate = state.rate;
-        u.onend = next;
-        u.onerror = function (e) {
-          if (my !== token) return;
-          if (e && (e.error === 'interrupted' || e.error === 'canceled')) return;
-          state.reading = false; render();
-        };
-        synth.speak(u);
-      }
-      next();
-    }
-
-    function pauseReading() {
-      token++;
-      if (synth) synth.cancel();
-      state.reading = false;
-      render();
-    }
-
-    function stopReading() {
-      token++;
-      if (synth) synth.cancel();
-      state.reading = false;
-      state.readIdx = 0;
-      highlight(-1);
-      render();
-    }
-
-    // ----- ラジオ対談ver -----
-    function playRadio() {
-      if (state.reading) pauseReading();
-      audio.playbackRate = state.rate;
-      var pr = audio.play();
+    function play() {
+      var a = cur();
+      Object.keys(audios).forEach(function (m) { if (audios[m] !== a) audios[m].pause(); });
+      a.playbackRate = state.rate;
+      var pr = a.play();
       if (pr && pr.catch) pr.catch(function () { render(); });
     }
 
-    ['play', 'pause', 'timeupdate', 'loadedmetadata', 'durationchange'].forEach(function (ev) {
-      audio.addEventListener(ev, render);
-    });
-    audio.addEventListener('ended', function () { track('complete'); render(); });
-    audio.addEventListener('error', function () { state.audioError = true; render(); });
+    function playFrom(t) {
+      cur().currentTime = Math.max(0, t);
+      play();
+    }
 
-    // ----- 操作 -----
     function setMode(m) {
       if (m === state.mode) return;
-      audio.pause();
-      stopReading();
+      audios.radio.pause();
+      audios.read.pause();
       state.mode = m;
       render();
       track('mode_switch');
     }
 
+    // ----- 操作 -----
     players.forEach(function (p) {
       var pid = p.dataset.pid;
       function own() { state.pid = pid; }
@@ -842,36 +797,27 @@ footer{border-top:1px solid var(--line-2)}
 
       p.querySelector('.p-play').addEventListener('click', function () {
         own();
-        if (state.mode === 'radio') {
-          if (audio.paused) { playRadio(); track('play'); } else { audio.pause(); track('pause'); }
-        } else {
-          if (state.reading) { pauseReading(); track('pause'); } else { speakFrom(state.readIdx); track('play'); }
-        }
+        if (cur().paused) { play(); track('play'); } else { cur().pause(); track('pause'); }
       });
 
       p.querySelector('.p-stop').addEventListener('click', function () {
         own();
-        if (state.mode === 'radio') { audio.pause(); audio.currentTime = 0; render(); }
-        else stopReading();
+        cur().pause();
+        cur().currentTime = 0;
+        render();
         track('stop');
       });
 
       var seek = p.querySelector('.p-seek');
       seek.addEventListener('input', function () {
         dragging = true;
-        if (state.mode === 'read') {
-          p.querySelector('.p-time').textContent = (+seek.value + 1) + ' / ' + paras.length + ' 段落';
-        } else {
-          p.querySelector('.p-time').textContent = fmt(+seek.value) + ' / ' + fmt(audio.duration);
-        }
+        p.querySelector('.p-time').textContent = fmt(+seek.value) + ' / ' + fmt(cur().duration);
       });
       seek.addEventListener('change', function () {
         dragging = false;
         own();
-        var v = +seek.value;
-        if (state.mode === 'radio') { audio.currentTime = v; render(); }
-        else if (state.reading) speakFrom(v);
-        else { state.readIdx = v; highlight(v); render(); }
+        cur().currentTime = +seek.value;
+        render();
         track('seek');
       });
 
@@ -879,8 +825,8 @@ footer{border-top:1px solid var(--line-2)}
         b.addEventListener('click', function () {
           own();
           state.rate = +b.dataset.rate;
-          audio.playbackRate = state.rate;
-          if (state.reading) speakFrom(state.readIdx); // 新しい速度で今の段落から読み直す
+          audios.radio.playbackRate = state.rate;
+          audios.read.playbackRate = state.rate;
           render();
           track('rate_change');
         });
@@ -891,10 +837,9 @@ footer{border-top:1px solid var(--line-2)}
           own();
           var ch = +b.dataset.ch;
           if (state.mode === 'read') {
-            speakFrom(chapterStart[ch]);
-          } else if (RADIO_CHAPTER_TIMES.every(function (t) { return t != null; })) {
-            audio.currentTime = RADIO_CHAPTER_TIMES[ch];
-            playRadio();
+            playFrom(READ_PARA_TIMES[chapterStart[ch]]);
+          } else if (radioTimesReady()) {
+            playFrom(RADIO_CHAPTER_TIMES[ch]);
           } else {
             document.getElementById('ch-' + ch).scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
@@ -909,13 +854,10 @@ footer{border-top:1px solid var(--line-2)}
         state.pid = 'book';
         if (state.mode !== 'read') setMode('read');
         var ch = +b.dataset.ch;
-        speakFrom(chapterStart[ch]);
+        playFrom(READ_PARA_TIMES[chapterStart[ch]]);
         track('chapter_jump', { chapter: CH_NAMES[ch] });
       });
     });
-
-    // ページを離れるときは読み上げを止める
-    window.addEventListener('pagehide', function () { if (synth) synth.cancel(); });
 
     render();
   })();
