@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MOKUJI｜ビジネス書は、目次から読めばいい。</title>
-<meta name="description" content="MOKUJIは、話題のビジネス書や名著を目次単位で要約し、1冊15分の音声で届ける読書サブスクです。第1弾は福澤諭吉『学問のすゝめ』。14日間無料でお試しいただけます。">
+<meta name="description" content="MOKUJIは、話題のビジネス書や名著を目次単位で要約し、1冊15分の音声で届ける読書サブスクです。第1弾は福澤諭吉『学問のすゝめ』。ラジオ対談・朗読・全文テキストで無料公開中。">
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -22,14 +22,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   --ink:#1B1F2A; --ink-2:#3D4250; --muted:#5A5F6B;
   --paper:#FAFAF7; --sand:#F0EEE7; --line:#D6D3C9; --line-2:#E4E2DA;
   --green:#1F4D3F; --green-2:#2A5E4E; --green-soft:#CFE0D8;
-  --accent:#E8B04B; --accent-soft:#E8B04B55;
+  --accent:#E8B04B; --accent-soft:#E8B04B55; --hl:#FBEBC8;
   --display:'Zen Kaku Gothic New',sans-serif;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans JP',sans-serif;font-size:16px;line-height:1.75}
 a{color:var(--green)} a:hover{color:#13342A}
-h1,h2,h3{font-family:var(--display);margin:0}
+h1,h2,h3,h4{font-family:var(--display);margin:0}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
 .section{padding:96px 0}
 .sand{background:var(--sand)}
@@ -57,32 +59,44 @@ nav a:not(.btn){color:var(--ink);text-decoration:none}
 .hero{display:flex;flex-wrap:wrap;gap:56px;align-items:center;padding-top:88px;padding-bottom:96px}
 .hero-copy{flex:1 1 460px;min-width:0}
 .pill{display:inline-block;margin:0 0 20px;padding:4px 14px;border-radius:999px;background:var(--accent-soft);font-size:14px;font-weight:700}
-.hero h1{font-weight:900;font-size:clamp(36px,5vw,60px);line-height:1.25}
+.hero h1{font-weight:900;font-size:clamp(34px,4.4vw,54px);line-height:1.25}
 .lead{margin:28px 0 0;font-size:18px;color:var(--ink-2);max-width:520px}
 .actions{margin-top:36px;display:flex;flex-wrap:wrap;gap:14px}
 .note{margin:18px 0 0;font-size:13px;color:var(--muted)}
-.player-wrap{flex:1 1 380px;min-width:0;display:flex;flex-direction:column;align-items:center}
-.player{width:100%;max-width:400px;background:var(--green);border-radius:28px;padding:28px;color:#fff}
+.player-wrap{flex:1 1 380px;min-width:0;display:flex;justify-content:center}
+
+/* ===== player（ラジオ対談 / 朗読） ===== */
+.player{width:100%;max-width:420px;background:var(--green);border-radius:28px;padding:28px;color:#fff}
 .player .label{margin:0;font-size:13px;letter-spacing:.1em;color:var(--green-soft)}
 .player .title{margin:6px 0 0;font-family:var(--display);font-weight:700;font-size:22px;line-height:1.4}
 .player .meta{margin:2px 0 0;font-size:14px;color:var(--green-soft)}
-.chapters{margin:24px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
-.chapters li{display:flex;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:12px;background:var(--green-2);font-size:15px}
-.chapters li span:last-child{color:var(--green-soft);white-space:nowrap}
-.chapters li.now{background:var(--accent);color:var(--ink);font-weight:700}
-.chapters li.now span:last-child{color:var(--ink)}
-.bar{margin-top:22px;height:6px;border-radius:3px;background:var(--green-2)}
-.bar div{width:38%;height:6px;border-radius:3px;background:var(--accent)}
-.player-link{margin-top:20px;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;background:#fff;color:var(--ink);font-weight:700;font-size:15px;text-decoration:none}
+.mode-tabs{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:14px;background:var(--green-2)}
+.tab{border:0;border-radius:10px;padding:10px 6px;background:transparent;color:var(--green-soft);font-size:14px;font-weight:700;line-height:1.4;cursor:pointer}
+.tab[aria-selected="true"]{background:#fff;color:var(--ink)}
+.p-status{margin:14px 0 0;font-size:14px;line-height:1.6;color:var(--green-soft);min-height:3.2em}
+.p-row{margin-top:10px;display:flex;align-items:center;gap:10px}
+.p-play{flex:1;min-height:48px;border:0;border-radius:999px;background:var(--accent);color:var(--ink);font-weight:700;font-size:16px;cursor:pointer}
+.p-play:hover{filter:brightness(.96)}
+.p-stop{min-height:48px;padding:0 20px;border:1.5px solid var(--green-soft);border-radius:999px;background:transparent;color:#fff;font-weight:700;font-size:15px;cursor:pointer}
+.p-seek{flex:1;min-width:0;accent-color:var(--accent);cursor:pointer}
+.p-time{font-size:13px;color:var(--green-soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+.p-speeds{margin-top:12px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px;color:var(--green-soft)}
+.p-speeds span{margin-right:4px}
+.p-speeds button{border:1px solid var(--green-soft);background:transparent;color:#fff;border-radius:999px;padding:3px 12px;font-size:13px;font-weight:700;cursor:pointer}
+.p-speeds button.on{background:#fff;color:var(--ink);border-color:#fff}
+.player button:disabled{opacity:.45;cursor:not-allowed}
+.chapters{margin:20px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.chap-btn{width:100%;display:flex;justify-content:space-between;gap:12px;padding:10px 14px;border:0;border-radius:12px;background:var(--green-2);color:#fff;font-size:14px;text-align:left;line-height:1.5;cursor:pointer}
+.chap-btn:hover{background:#336B59}
+.chap-btn.now{background:var(--accent);color:var(--ink);font-weight:700}
+.player-link{margin-top:18px;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;background:#fff;color:var(--ink);font-weight:700;font-size:15px;text-decoration:none}
 .player-link:hover{color:var(--ink);background:#F6F5F0}
-.player-note{margin:10px 0 0;font-size:12px;color:var(--muted);text-align:center}
 
 /* features */
 .features{margin-top:48px;display:grid;gap:40px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
 .features h3{margin-top:18px;font-weight:700;font-size:22px}
 
 /* book（今週の1冊） */
-.book-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px}
 .book-head .h2 small{display:block;margin-top:6px;font-size:clamp(17px,1.8vw,21px);font-weight:700;color:var(--ink-2)}
 .book-meta{margin:28px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:10px}
 .book-meta li{padding:6px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:14px}
@@ -91,26 +105,45 @@ nav a:not(.btn){color:var(--ink);text-decoration:none}
 .toc{position:sticky;top:24px;background:var(--green);color:#fff;border-radius:24px;padding:26px}
 .toc p{margin:0;font-size:13px;letter-spacing:.1em;color:var(--green-soft)}
 .toc ol{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
-.toc a{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:10px;color:#fff;text-decoration:none;font-size:14px;line-height:1.5}
+.toc a{display:block;padding:10px 12px;border-radius:10px;color:#fff;text-decoration:none;font-size:14px;line-height:1.5}
 .toc a:hover{background:var(--green-2);color:#fff}
-.toc a span:last-child{color:var(--green-soft);white-space:nowrap}
+.toc a.active{background:var(--accent);color:var(--ink);font-weight:700}
 .toc .total{margin-top:14px;padding-top:14px;border-top:1px solid var(--green-2);font-size:13px;color:var(--green-soft);letter-spacing:0}
-.book-body{display:flex;flex-direction:column;gap:20px}
+.book-body{display:flex;flex-direction:column;gap:20px;min-width:0}
 .book-body .card{scroll-margin-top:24px}
+.block-label{margin:12px 0 0;font-family:var(--display);font-weight:900;font-size:22px}
+.block-label:first-child{margin-top:0}
+.block-label small{margin-left:8px;font-family:'IBM Plex Sans JP',sans-serif;font-size:14px;font-weight:500;color:var(--muted)}
 .intro{font-size:17px}
 .intro .quote{margin:0 0 14px;padding-left:16px;border-left:4px solid var(--accent);font-family:var(--display);font-weight:700;font-size:20px;line-height:1.6}
 .intro p{margin:0}
 .point{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 20px}
-.point .pnum{grid-row:span 3;font-family:var(--display);font-weight:900;font-size:44px;line-height:1;color:var(--accent)}
+.point .pnum{grid-row:span 3;margin:0;font-family:var(--display);font-weight:900;font-size:44px;line-height:1;color:var(--accent)}
 .point .chap{margin:0;font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--green)}
 .point h3{font-weight:700;font-size:22px;line-height:1.45}
 .point p.body{margin:8px 0 0;color:var(--ink-2)}
 .keyword{display:inline-block;margin-top:14px;padding:4px 12px;border-radius:8px;background:var(--green-soft);color:var(--green);font-size:14px;font-weight:700}
 .next{background:var(--ink);color:#fff}
-.next .chap{color:var(--accent)}
+.next .chap{margin:0;font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--accent)}
 .next h3{margin-top:4px;font-weight:700;font-size:22px}
 .next ul{margin:14px 0 0;padding-left:20px;color:#DCDEE4}
 .next li+li{margin-top:6px}
+.listen .player{max-width:none}
+
+/* 全文テキスト */
+.fulltext{background:#fff;border-radius:24px;padding:36px clamp(20px,4vw,44px)}
+.ft-title{margin:0;font-family:var(--display);font-weight:700;font-size:20px;line-height:1.5}
+.ft-sub{margin:4px 0 0;color:var(--ink-2);font-weight:700}
+.ft-note{margin:12px 0 0;font-size:14px;color:var(--muted)}
+.chapter{margin-top:32px;padding-top:28px;border-top:1px solid var(--line-2);scroll-margin-top:24px}
+.ch-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 16px}
+.ch-head h4{font-weight:700;font-size:21px;line-height:1.5}
+.ch-play{flex-shrink:0;border:1.5px solid var(--green);background:#fff;color:var(--green);border-radius:999px;padding:4px 14px;font-size:13px;font-weight:700;cursor:pointer}
+.ch-play:hover{background:var(--green-soft)}
+.chapter p{margin:14px 0 0}
+.ft-quote{font-family:var(--display);font-weight:700;font-size:19px;padding-left:14px;border-left:4px solid var(--accent)}
+.rd{border-radius:8px;transition:background-color .25s,box-shadow .25s;scroll-margin-top:120px}
+.rd.reading{background:var(--hl);box-shadow:0 0 0 8px var(--hl)}
 .book-cta{margin-top:8px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
 .book-cta p{margin:0;font-size:14px;color:var(--muted)}
 
@@ -134,10 +167,7 @@ nav a:not(.btn){color:var(--ink);text-decoration:none}
 .plan ul{margin:0;padding-left:20px;color:var(--ink-2);flex-grow:1}
 .plan .btn{min-height:48px;font-size:16px}
 
-/* voice / faq */
-figure{margin:0}
-blockquote{margin:0;font-size:17px}
-figcaption{margin-top:16px;font-size:14px;color:var(--muted)}
+/* use cases / faq */
 .voice-note{margin:14px 0 0;font-size:13px;font-weight:700;color:var(--green)}
 .faq{max-width:860px}
 dl{margin:40px 0 0}
@@ -169,6 +199,7 @@ footer{border-top:1px solid var(--line-2)}
 @media (max-width:520px){
   .point{grid-template-columns:minmax(0,1fr)}
   .point .pnum{grid-row:auto;font-size:36px}
+  .player{padding:22px}
 }
 </style>
 </head>
@@ -176,6 +207,9 @@ footer{border-top:1px solid var(--line-2)}
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TN5C5GR8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+
+<!-- ラジオ対談verの音声（リポジトリ直下の gakumon.m4a） -->
+<audio id="radio-audio" src="gakumon.m4a" preload="metadata"></audio>
 
 <header>
   <div class="wrap nav">
@@ -206,21 +240,42 @@ footer{border-top:1px solid var(--line-2)}
     </div>
     <p class="note">無料期間中に解約すれば料金はかかりません</p>
   </div>
+
   <div class="player-wrap">
-    <div class="player">
-      <p class="label">いま聴いている本</p>
+    <!-- プレイヤー①（ヒーロー） -->
+    <div class="player mplayer" data-pid="hero">
+      <p class="label">いま聴ける本</p>
       <p class="title">学問のすゝめ</p>
-      <p class="meta">福澤諭吉　・　全6章　・　15分</p>
+      <p class="meta">福澤諭吉　・　全6章　・　約15分</p>
+      <div class="mode-tabs" role="tablist" aria-label="再生モード">
+        <button type="button" class="tab" role="tab" data-mode="radio" aria-selected="true">🎧 ラジオ対談ver</button>
+        <button type="button" class="tab" role="tab" data-mode="read" aria-selected="false">📖 朗読ver（テキスト連動）</button>
+      </div>
+      <p class="p-status" aria-live="polite"></p>
+      <div class="p-row">
+        <button type="button" class="p-play">▶ 再生</button>
+        <button type="button" class="p-stop">■ 停止</button>
+      </div>
+      <div class="p-row">
+        <input type="range" class="p-seek" min="0" max="0" step="0.1" value="0" aria-label="再生位置">
+        <span class="p-time">0:00 / --:--</span>
+      </div>
+      <div class="p-speeds" role="group" aria-label="再生速度">
+        <span>再生速度</span>
+        <button type="button" data-rate="1" class="on">1.0x</button>
+        <button type="button" data-rate="1.25">1.25x</button>
+        <button type="button" data-rate="1.5">1.5x</button>
+      </div>
       <ol class="chapters">
-        <li><span>はじめに　有名な一文の「続き」</span><span>1:30</span></li>
-        <li class="now"><span>第1章　天は人の上に人を造らず</span><span>再生中</span></li>
-        <li><span>第2章　学ぶ人と学ばない人の差</span><span>2:30</span></li>
-        <li><span>第3章　一身独立して一国独立す</span><span>3:00</span></li>
+        <li><button type="button" class="chap-btn" data-ch="0">はじめに　有名な一文の「続き」</button></li>
+        <li><button type="button" class="chap-btn" data-ch="1">第1章　天は人の上に人を造らず</button></li>
+        <li><button type="button" class="chap-btn" data-ch="2">第2章　学ぶ人と学ばない人の差</button></li>
+        <li><button type="button" class="chap-btn" data-ch="3">第3章　一身独立して一国独立す</button></li>
+        <li><button type="button" class="chap-btn" data-ch="4">第4章　実学のすすめ</button></li>
+        <li><button type="button" class="chap-btn" data-ch="5">まとめ　明日から何を変えるか</button></li>
       </ol>
-      <div class="bar"><div></div></div>
-      <a class="player-link" href="#book" data-cta="hero_player_read"><span>要約をテキストで読む（3分）</span><span aria-hidden="true">→</span></a>
+      <a class="player-link" href="#fulltext" data-cta="hero_player_fulltext"><span>本編の全文テキストを読む</span><span aria-hidden="true">→</span></a>
     </div>
-    <p class="player-note">※ サンプル画面です</p>
   </div>
 </section>
 
@@ -264,10 +319,8 @@ footer{border-top:1px solid var(--line-2)}
 <section id="book" class="section sand">
   <div class="wrap">
     <div class="book-head">
-      <div>
-        <p class="eyebrow">FREE SAMPLE｜今週の1冊</p>
-        <h2 class="h2">15分でわかる『学問のすゝめ』（福澤諭吉）<small>現代のビジネスパーソンが学ぶべき「自立」の教科書</small></h2>
-      </div>
+      <p class="eyebrow">FREE SAMPLE｜今週の1冊</p>
+      <h2 class="h2">15分でわかる『学問のすゝめ』（福澤諭吉）<small>現代のビジネスパーソンが学ぶべき「自立」の教科書</small></h2>
     </div>
     <ul class="book-meta">
       <li><b>著者</b>　福澤諭吉</li>
@@ -279,17 +332,20 @@ footer{border-top:1px solid var(--line-2)}
       <aside class="toc" aria-label="この本の目次">
         <p>MOKUJI ── この本の目次</p>
         <ol>
-          <li><a href="#book-intro" data-cta="toc_intro"><span>はじめに　有名な一文の「続き」</span><span>1:30</span></a></li>
-          <li><a href="#point-1" data-cta="toc_ch1"><span>第1章　天は人の上に人を造らず</span><span>2:30</span></a></li>
-          <li><a href="#point-1" data-cta="toc_ch2"><span>第2章　学ぶ人と学ばない人の差</span><span>2:30</span></a></li>
-          <li><a href="#point-2" data-cta="toc_ch3"><span>第3章　一身独立して一国独立す</span><span>3:00</span></a></li>
-          <li><a href="#point-3" data-cta="toc_ch4"><span>第4章　実学のすすめ</span><span>3:00</span></a></li>
-          <li><a href="#book-next" data-cta="toc_summary"><span>まとめ　明日から何を変えるか</span><span>2:30</span></a></li>
+          <li><a href="#ch-0" data-ch="0" data-cta="toc_intro">はじめに　有名な一文の「続き」</a></li>
+          <li><a href="#ch-1" data-ch="1" data-cta="toc_ch1">第1章　天は人の上に人を造らず</a></li>
+          <li><a href="#ch-2" data-ch="2" data-cta="toc_ch2">第2章　学ぶ人と学ばない人の差</a></li>
+          <li><a href="#ch-3" data-ch="3" data-cta="toc_ch3">第3章　一身独立して一国独立す</a></li>
+          <li><a href="#ch-4" data-ch="4" data-cta="toc_ch4">第4章　実学のすすめ</a></li>
+          <li><a href="#ch-5" data-ch="5" data-cta="toc_summary">まとめ　明日から何を変えるか</a></li>
         </ol>
-        <p class="total">全6章・合計15分（このページは要点を3分で読めるテキスト版です）</p>
+        <p class="total">全6章。目次をタップすると本編の該当章へ移動します。朗読verでは、読み上げ中の章がここに表示されます。</p>
       </aside>
 
       <article class="book-body">
+        <!-- 3分ダイジェスト -->
+        <h3 class="block-label">⏱ 3分ダイジェスト<small>3つの要点</small></h3>
+
         <div id="book-intro" class="card intro">
           <p class="quote">「天は人の上に人を造らず、人の下に人を造らず」</p>
           <p>——あまりにも有名なこの一文には、実は「でも、学んだ人と学ばない人の間には圧倒的な差がつく」という厳しい続きがあります。明治時代に書かれたベストセラー『学問のすゝめ』から、変化の激しい現代を生き抜くビジネスパーソンに必要な「自立と学びの本質」を15分でわかりやすく解説します。</p>
@@ -325,19 +381,102 @@ footer{border-top:1px solid var(--line-2)}
           </div>
         </div>
 
-        <div id="book-next" class="card next">
+        <div class="card next">
           <p class="chap">まとめ</p>
           <h3>明日から何を変えるか</h3>
           <ul>
             <li>今週、自分の市場価値を上げるために学ぶテーマを1つ決める</li>
-            <li>会社の看板がなくても通用する自分の力は何か、書き出してみる</li>
+            <li>会社の看板がなくても通用する自分の強みは何か、書き出してみる</li>
             <li>読んだ・聴いた内容は「明日の仕事でどう使うか」まで1行でメモする</li>
           </ul>
         </div>
 
+        <!-- 本編を聴く・読む -->
+        <h3 id="listen" class="block-label">🎧 本編を聴く・読む<small>ラジオ対談ver ／ 朗読ver</small></h3>
+        <div class="listen">
+          <!-- プレイヤー②（今週の1冊） -->
+          <div class="player mplayer" data-pid="book">
+            <p class="label">本編</p>
+            <p class="title">15分でわかる『学問のすゝめ』</p>
+            <p class="meta">ラジオ対談で聴く、または全文テキストと一緒に朗読で聴く</p>
+            <div class="mode-tabs" role="tablist" aria-label="再生モード">
+              <button type="button" class="tab" role="tab" data-mode="radio" aria-selected="true">🎧 ラジオ対談ver</button>
+              <button type="button" class="tab" role="tab" data-mode="read" aria-selected="false">📖 朗読ver（テキスト連動）</button>
+            </div>
+            <p class="p-status" aria-live="polite"></p>
+            <div class="p-row">
+              <button type="button" class="p-play">▶ 再生</button>
+              <button type="button" class="p-stop">■ 停止</button>
+            </div>
+            <div class="p-row">
+              <input type="range" class="p-seek" min="0" max="0" step="0.1" value="0" aria-label="再生位置">
+              <span class="p-time">0:00 / --:--</span>
+            </div>
+            <div class="p-speeds" role="group" aria-label="再生速度">
+              <span>再生速度</span>
+              <button type="button" data-rate="1" class="on">1.0x</button>
+              <button type="button" data-rate="1.25">1.25x</button>
+              <button type="button" data-rate="1.5">1.5x</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 本編の全文テキスト（朗読verはここを1段落ずつ読み上げる） -->
+        <div id="fulltext" class="fulltext">
+          <h3 class="block-label">📖 本編の全文テキスト<small>全6章・目次連動</small></h3>
+          <p class="ft-title rd" data-ch="0" style="margin-top:18px">【MOKUJI 本編】15分でわかる『学問のすゝめ』（福澤諭吉）</p>
+          <p class="ft-sub rd" data-ch="0">〜現代のビジネスパーソンが学ぶべき「自立」の教科書〜</p>
+          <p class="ft-note">朗読verで再生すると、読み上げ中の段落がハイライトされます。各章の「この章から朗読」からも再生できます。</p>
+
+          <section id="ch-0" class="chapter" data-ch="0">
+            <div class="ch-head"><h4 class="rd" data-ch="0">はじめに：有名な一文の「続き」を知っていますか？</h4><button type="button" class="ch-play" data-ch="0">▶ この章から朗読</button></div>
+            <p class="rd ft-quote" data-ch="0">「天は人の上に人を造らず、人の下に人を造らず」</p>
+            <p class="rd" data-ch="0">おそらく誰もが一度は聞いたことがある、福澤諭吉『学問のすゝめ』の冒頭の一節です。</p>
+            <p class="rd" data-ch="0">多くの人はこの言葉を「人間はみんな平等である」という意味だけで覚えています。しかし、実はこの直後に、私たちの背筋が凍るような厳しい続きが書かれていることをご存知でしょうか。</p>
+            <p class="rd" data-ch="0">福澤諭吉はこう続けました。「……と言えり。されども今、広くこの人間世界を見渡すに、賢き人あり、愚かなる人あり、貧しきもあり、富めるもあり、貴人もあり、下人もありて、その有様雲と泥との相違あるに似たるは何ぞや」。</p>
+            <p class="rd" data-ch="0">つまり、「天はみんなを平等に造ったはずなのに、現実の世界を見渡すと、賢い人と愚かな人、豊かな人と貧しい人、雲と泥ほどの圧倒的な差がついている。それは一体なぜなのか？」と問いかけているのです。</p>
+          </section>
+
+          <section id="ch-1" class="chapter" data-ch="1">
+            <div class="ch-head"><h4 class="rd" data-ch="1">第1章：天は人の上に人を造らず</h4><button type="button" class="ch-play" data-ch="1">▶ この章から朗読</button></div>
+            <p class="rd" data-ch="1">なぜ雲と泥ほどの差がつくのか。福澤諭吉の答えはたった一つ、「学問をしたか、しなかったか」です。</p>
+            <p class="rd" data-ch="1">生まれつき頭が良いとか、家柄が良いとかいった違いではありません。ただ「学んだか、学ばなかったか」という後天的な行動の差だけが、人生の豊かさや自由度を決定づけると断言しています。</p>
+            <p class="rd" data-ch="1">これは現代のビジネスパーソンにもまったく同じことが言えます。新卒で入社した瞬間は、同期みんながほぼ同じスタートラインに立っています。しかし、3年後、5年後、10年後には、市場価値にも年収にも、仕事の選択肢にも大きな差が生まれます。その分かれ道は、日々の仕事の中で「学び続けているか、現状に甘んじて学びを止めているか」の積み重ねなのです。</p>
+          </section>
+
+          <section id="ch-2" class="chapter" data-ch="2">
+            <div class="ch-head"><h4 class="rd" data-ch="2">第2章：学ぶ人と学ばない人の差</h4><button type="button" class="ch-play" data-ch="2">▶ この章から朗読</button></div>
+            <p class="rd" data-ch="2">では、学ばない人はどうなってしまうのでしょうか。福澤諭吉は「人学ばざれば智なし、智なき者は愚人なり」と厳しく指摘します。ここでいう「愚人」とは、単に知識がない人のことではありません。「自分の頭で考えず、誰かの意見や世間の空気に流されてしまう人」のことです。</p>
+            <p class="rd" data-ch="2">たとえば、会社の方針が急に変わったとき、あるいはAIの進化によって今までのやり方が通用しなくなったとき、学びを止めている人は文句を言うか、誰かが助けてくれるのを待つことしかできません。一方で、学び続けている人は「じゃあ次はこう動こう」「この新しいスキルを身につけよう」と自分で状況を打開できます。学ぶことは、変化の激しい時代において自分の身を守る最大の武器なのです。</p>
+          </section>
+
+          <section id="ch-3" class="chapter" data-ch="3">
+            <div class="ch-head"><h4 class="rd" data-ch="3">第3章：一身独立して一国独立す</h4><button type="button" class="ch-play" data-ch="3">▶ この章から朗読</button></div>
+            <p class="rd" data-ch="3">『学問のすゝめ』全体を貫く最も重要なキーワードが「独立自尊（どくりつじそん）」です。そして福澤は「一身独立して一国独立す」と説きました。</p>
+            <p class="rd" data-ch="3">これは「一人ひとりの個人が精神的にも経済的にも自立して初めて、国全体が独立できる」という意味です。現代の働き方に置き換えるなら、「社員一人ひとりが自立して初めて、強いチームや会社がつくれる」ということです。</p>
+            <p class="rd" data-ch="3">終身雇用が当たり前ではなくなった今、一つの会社に依存しきる働き方には大きなリスクがあります。「会社の看板が外れたとき、自分には何ができるのか？」「自分の力で価値を生み出せるか？」。誰かに頼りきりの状態から抜け出し、自分の頭で考え、自分の力で稼ぎ、自分の責任で判断すること。この「個人の自立」こそが、福澤諭吉が150年前に私たちへ残した最大のメッセージです。</p>
+          </section>
+
+          <section id="ch-4" class="chapter" data-ch="4">
+            <div class="ch-head"><h4 class="rd" data-ch="4">第4章：実学（じつがく）のすすめ</h4><button type="button" class="ch-play" data-ch="4">▶ この章から朗読</button></div>
+            <p class="rd" data-ch="4">では、具体的にどんな学問をすればよいのでしょうか。福澤諭吉は、難しい古典を暗記したり、詩を作ったりするだけの「机上の空論」を批判し、日常の生活や仕事ですぐに役立つ生きた知識＝「実学（じつがく）」を学ぶべきだと主張しました。</p>
+            <p class="rd" data-ch="4">現代でいえば、営業の現場で使える交渉術、数字を読み解く会計やデータ分析、AIを使いこなすITスキル、チームを動かすマネジメントなど、すべて立派な「実学」です。</p>
+            <p class="rd" data-ch="4">大切なのは、「知識をコレクションすること」ではなく、「今の仕事にどう活かせるか？」「明日から何を変えるか？」という視点で学ぶことです。1冊の本からたった1つでも行動を変えられるヒントを得られたなら、それこそが本当の意味での「実学」なのです。</p>
+          </section>
+
+          <section id="ch-5" class="chapter" data-ch="5">
+            <div class="ch-head"><h4 class="rd" data-ch="5">まとめ：明日から何を変えるか</h4><button type="button" class="ch-play" data-ch="5">▶ この章から朗読</button></div>
+            <p class="rd" data-ch="5">ここまで『学問のすゝめ』の核心を4つの章で振り返ってきました。最後に、明日からすぐに取り組める3つのアクションをお伝えします。</p>
+            <p class="rd" data-ch="5">1つ目は、「今週、自分の市場価値を上げるために学ぶテーマを1つ決めること」。</p>
+            <p class="rd" data-ch="5">2つ目は、「会社の看板がなくても通用する自分の強みは何か、紙に書き出してみること」。</p>
+            <p class="rd" data-ch="5">3つ目は、「本や音声で学んだ内容は、明日の仕事でどう使うかまで1行でメモすること」。</p>
+            <p class="rd" data-ch="5">「天は人の上に人を造らず、人の下に人を造らず」。今日の小さな学びの選択が、5年後、10年後のあなたの自由をつくります。ぜひ明日の通勤時間から、新しい1ページを開いてみてください。</p>
+          </section>
+        </div>
+
         <div class="book-cta">
-          <a class="btn btn-accent" href="#cta" data-cta="book_trial" data-plan="standard">続きを音声で聴く（14日間無料）</a>
-          <p>アプリでは各章を2〜3分の音声で、気になる章からつまみ聴きできます。</p>
+          <a class="btn btn-accent" href="#cta" data-cta="book_trial" data-plan="standard">ほかの名著も聴く（14日間無料）</a>
+          <p>アプリでは毎週新しい1冊を、章ごとに2〜3分の音声でつまみ聴きできます。</p>
         </div>
       </article>
     </div>
@@ -475,6 +614,311 @@ footer{border-top:1px solid var(--line-2)}
     planNote.style.display = 'none';
     document.getElementById('thanks').style.display = 'block';
   });
+</script>
+
+<script>
+  // ===== 本編プレイヤー（ラジオ対談ver：<audio> ／ 朗読ver：Web Speech API） =====
+  (function () {
+    var CH_NAMES = ['はじめに', '第1章　天は人の上に人を造らず', '第2章　学ぶ人と学ばない人の差', '第3章　一身独立して一国独立す', '第4章　実学のすすめ', 'まとめ　明日から何を変えるか'];
+
+    // ラジオ対談verの各章の開始位置（秒）。音声の章の区切りがわかったら入れてください。
+    // 例：[0, 95, 250, 400, 590, 780]　すべて入れると、章ボタンでその位置から再生できます。
+    var RADIO_CHAPTER_TIMES = [null, null, null, null, null, null];
+
+    var audio = document.getElementById('radio-audio');
+    var players = Array.prototype.slice.call(document.querySelectorAll('.mplayer'));
+    var paras = Array.prototype.slice.call(document.querySelectorAll('#fulltext .rd'));
+    var tocLinks = Array.prototype.slice.call(document.querySelectorAll('.toc a[data-ch]'));
+    var synth = ('speechSynthesis' in window) ? window.speechSynthesis : null;
+
+    var state = { mode: 'radio', rate: 1, readIdx: 0, reading: false, pid: 'hero', audioError: false };
+    var token = 0;        // 読み上げの世代（停止・切替時に古い読み上げのイベントを無視する）
+    var jaVoice = null;
+    var dragging = false;
+
+    // 章ごとの最初の段落
+    var chapterStart = CH_NAMES.map(function (_, ch) {
+      for (var i = 0; i < paras.length; i++) {
+        if (paras[i].tagName === 'H4' && +paras[i].dataset.ch === ch) return i;
+      }
+      return 0;
+    });
+
+    function track(action, extra) {
+      var o = { event: 'player_action', player_action: action, player_mode: state.mode, player_id: state.pid, playback_rate: state.rate };
+      if (extra) for (var k in extra) o[k] = extra[k];
+      window.dataLayer.push(o);
+    }
+
+    function fmt(s) {
+      if (!isFinite(s) || s < 0) return '--:--';
+      s = Math.floor(s);
+      return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2);
+    }
+
+    function radioChapter() {
+      for (var i = 0; i < RADIO_CHAPTER_TIMES.length; i++) if (RADIO_CHAPTER_TIMES[i] == null) return -1;
+      var c = 0;
+      for (var j = 0; j < RADIO_CHAPTER_TIMES.length; j++) if (audio.currentTime >= RADIO_CHAPTER_TIMES[j]) c = j;
+      return c;
+    }
+
+    function currentChapter() {
+      if (state.mode === 'read') return (state.reading || state.readIdx > 0) ? +paras[state.readIdx].dataset.ch : -1;
+      return audio.paused && audio.currentTime === 0 ? -1 : radioChapter();
+    }
+
+    // ----- 画面の更新（2つのプレイヤーを同じ状態に揃える） -----
+    function render() {
+      var ch = currentChapter();
+      players.forEach(function (p) {
+        p.querySelectorAll('.tab').forEach(function (t) {
+          t.setAttribute('aria-selected', t.dataset.mode === state.mode ? 'true' : 'false');
+        });
+        var play = p.querySelector('.p-play');
+        var seek = p.querySelector('.p-seek');
+        var time = p.querySelector('.p-time');
+        var status = p.querySelector('.p-status');
+        var playing, msg;
+
+        if (state.mode === 'radio') {
+          playing = !audio.paused;
+          play.disabled = state.audioError;
+          seek.disabled = state.audioError;
+          seek.step = '0.1';
+          seek.max = isFinite(audio.duration) ? audio.duration : 0;
+          if (!dragging) seek.value = audio.currentTime;
+          time.textContent = fmt(audio.currentTime) + ' / ' + fmt(audio.duration);
+          if (state.audioError) msg = '音声を読み込めませんでした。時間をおいて再度お試しください。';
+          else if (playing) msg = '🎧 再生中' + (ch >= 0 ? '：' + CH_NAMES[ch] : '：ラジオ対談ver');
+          else msg = '対談形式で、本の要点をわかりやすく解説します。';
+        } else {
+          playing = state.reading;
+          play.disabled = !synth;
+          seek.disabled = !synth;
+          seek.step = '1';
+          seek.max = paras.length - 1;
+          if (!dragging) seek.value = state.readIdx;
+          time.textContent = (state.readIdx + 1) + ' / ' + paras.length + ' 段落';
+          var c = +paras[state.readIdx].dataset.ch;
+          if (!synth) msg = 'お使いのブラウザは音声読み上げに対応していません。全文テキストをご覧ください。';
+          else if (playing) msg = '📖 読み上げ中：' + CH_NAMES[c];
+          else msg = '全文テキストを1段落ずつ読み上げます（読み上げ中の段落をハイライト）。';
+        }
+        play.textContent = playing ? '❚❚ 一時停止' : '▶ 再生';
+        play.setAttribute('aria-label', playing ? '一時停止' : '再生');
+        status.textContent = msg;
+
+        p.querySelectorAll('.p-speeds button').forEach(function (b) {
+          b.classList.toggle('on', +b.dataset.rate === state.rate);
+        });
+        p.querySelectorAll('.chap-btn').forEach(function (b) {
+          b.classList.toggle('now', +b.dataset.ch === ch);
+        });
+      });
+      tocLinks.forEach(function (a) {
+        a.classList.toggle('active', state.mode === 'read' && +a.dataset.ch === ch);
+      });
+    }
+
+    // ----- 朗読ver -----
+    function pickVoice() {
+      if (!synth) return;
+      var vs = synth.getVoices().filter(function (v) { return /^ja/i.test(v.lang); });
+      jaVoice = vs.filter(function (v) { return /Google|Kyoko|Otoya|Nanami|Haruka|Ayumi/i.test(v.name); })[0] || vs[0] || null;
+    }
+    if (synth) {
+      pickVoice();
+      if ('onvoiceschanged' in synth) synth.onvoiceschanged = pickVoice;
+    }
+
+    // 読み上げ用にテキストを整える（読みがなの重複や記号を除く）
+    function speechText(el) {
+      return el.textContent
+        .replace(/（じつがく）|（どくりつじそん）/g, '')
+        .replace(/すゝめ/g, 'すすめ')
+        .replace(/人学ばざれば智なし、智なき者/g, 'ひとまなばざれば ちなし、ちなきもの')
+        .replace(/……/g, '、')
+        .replace(/[■〜]/g, ' ');
+    }
+
+    // 長い段落は文ごとに分けて読む（ブラウザによる長文の途中停止を防ぐ）
+    function chunks(text) {
+      var arr = text.match(/[^。！？]+[。！？」』]*/g) || [text];
+      return arr.map(function (s) { return s.trim(); }).filter(Boolean);
+    }
+
+    function highlight(i) {
+      paras.forEach(function (p, j) { p.classList.toggle('reading', j === i); });
+      if (state.pid === 'book' && i >= 0) {
+        paras[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    function speakFrom(i) {
+      if (!synth) return;
+      if (!audio.paused) audio.pause();
+      token++;
+      var my = token;
+      synth.cancel();
+      state.reading = true;
+      state.readIdx = i;
+      highlight(i);
+      render();
+      var parts = chunks(speechText(paras[i]));
+      var k = 0;
+      function next() {
+        if (my !== token) return;
+        if (k >= parts.length) {
+          if (i + 1 < paras.length) { speakFrom(i + 1); }
+          else {
+            state.reading = false; state.readIdx = 0;
+            highlight(-1); render(); track('complete');
+          }
+          return;
+        }
+        var u = new SpeechSynthesisUtterance(parts[k++]);
+        u.lang = 'ja-JP';
+        if (jaVoice) u.voice = jaVoice;
+        u.rate = state.rate;
+        u.onend = next;
+        u.onerror = function (e) {
+          if (my !== token) return;
+          if (e && (e.error === 'interrupted' || e.error === 'canceled')) return;
+          state.reading = false; render();
+        };
+        synth.speak(u);
+      }
+      next();
+    }
+
+    function pauseReading() {
+      token++;
+      if (synth) synth.cancel();
+      state.reading = false;
+      render();
+    }
+
+    function stopReading() {
+      token++;
+      if (synth) synth.cancel();
+      state.reading = false;
+      state.readIdx = 0;
+      highlight(-1);
+      render();
+    }
+
+    // ----- ラジオ対談ver -----
+    function playRadio() {
+      if (state.reading) pauseReading();
+      audio.playbackRate = state.rate;
+      var pr = audio.play();
+      if (pr && pr.catch) pr.catch(function () { render(); });
+    }
+
+    ['play', 'pause', 'timeupdate', 'loadedmetadata', 'durationchange'].forEach(function (ev) {
+      audio.addEventListener(ev, render);
+    });
+    audio.addEventListener('ended', function () { track('complete'); render(); });
+    audio.addEventListener('error', function () { state.audioError = true; render(); });
+
+    // ----- 操作 -----
+    function setMode(m) {
+      if (m === state.mode) return;
+      audio.pause();
+      stopReading();
+      state.mode = m;
+      render();
+      track('mode_switch');
+    }
+
+    players.forEach(function (p) {
+      var pid = p.dataset.pid;
+      function own() { state.pid = pid; }
+
+      p.querySelectorAll('.tab').forEach(function (t) {
+        t.addEventListener('click', function () { own(); setMode(t.dataset.mode); });
+      });
+
+      p.querySelector('.p-play').addEventListener('click', function () {
+        own();
+        if (state.mode === 'radio') {
+          if (audio.paused) { playRadio(); track('play'); } else { audio.pause(); track('pause'); }
+        } else {
+          if (state.reading) { pauseReading(); track('pause'); } else { speakFrom(state.readIdx); track('play'); }
+        }
+      });
+
+      p.querySelector('.p-stop').addEventListener('click', function () {
+        own();
+        if (state.mode === 'radio') { audio.pause(); audio.currentTime = 0; render(); }
+        else stopReading();
+        track('stop');
+      });
+
+      var seek = p.querySelector('.p-seek');
+      seek.addEventListener('input', function () {
+        dragging = true;
+        if (state.mode === 'read') {
+          p.querySelector('.p-time').textContent = (+seek.value + 1) + ' / ' + paras.length + ' 段落';
+        } else {
+          p.querySelector('.p-time').textContent = fmt(+seek.value) + ' / ' + fmt(audio.duration);
+        }
+      });
+      seek.addEventListener('change', function () {
+        dragging = false;
+        own();
+        var v = +seek.value;
+        if (state.mode === 'radio') { audio.currentTime = v; render(); }
+        else if (state.reading) speakFrom(v);
+        else { state.readIdx = v; highlight(v); render(); }
+        track('seek');
+      });
+
+      p.querySelectorAll('.p-speeds button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          own();
+          state.rate = +b.dataset.rate;
+          audio.playbackRate = state.rate;
+          if (state.reading) speakFrom(state.readIdx); // 新しい速度で今の段落から読み直す
+          render();
+          track('rate_change');
+        });
+      });
+
+      p.querySelectorAll('.chap-btn').forEach(function (b) {
+        b.addEventListener('click', function () {
+          own();
+          var ch = +b.dataset.ch;
+          if (state.mode === 'read') {
+            speakFrom(chapterStart[ch]);
+          } else if (RADIO_CHAPTER_TIMES.every(function (t) { return t != null; })) {
+            audio.currentTime = RADIO_CHAPTER_TIMES[ch];
+            playRadio();
+          } else {
+            document.getElementById('ch-' + ch).scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+          track('chapter_jump', { chapter: CH_NAMES[ch] });
+        });
+      });
+    });
+
+    // 全文テキストの「この章から朗読」
+    document.querySelectorAll('.ch-play').forEach(function (b) {
+      b.addEventListener('click', function () {
+        state.pid = 'book';
+        if (state.mode !== 'read') setMode('read');
+        var ch = +b.dataset.ch;
+        speakFrom(chapterStart[ch]);
+        track('chapter_jump', { chapter: CH_NAMES[ch] });
+      });
+    });
+
+    // ページを離れるときは読み上げを止める
+    window.addEventListener('pagehide', function () { if (synth) synth.cancel(); });
+
+    render();
+  })();
 </script>
 
 <!-- HubSpot トラッキングコード -->
