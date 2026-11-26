@@ -4,18 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MOKUJI｜ビジネス書は、目次から読めばいい。</title>
-<meta name="description" content="MOKUJIは、話題のビジネス書を目次単位で要約し、1冊15分の音声で届ける読書サブスクです（マーケティング練習用の架空サービス）。">
-<!-- 架空サービスのため検索エンジンに載せない -->
-<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="MOKUJIは、話題のビジネス書や名著を目次単位で要約し、1冊15分の音声で届ける読書サブスクです。第1弾は福澤諭吉『学問のすゝめ』。14日間無料でお試しいただけます。">
 
-<!-- ===== Google Tag Manager ===== -->
-<!-- GTM-XXXXXXX を自分のコンテナIDに置き換える（このファイル内に2か所） -->
+<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-TN5C5GR8');</script>
-<!-- ===== End Google Tag Manager ===== -->
+<!-- End Google Tag Manager -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,6 +26,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   --display:'Zen Kaku Gothic New',sans-serif;
 }
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans JP',sans-serif;font-size:16px;line-height:1.75}
 a{color:var(--green)} a:hover{color:#13342A}
 h1,h2,h3{font-family:var(--display);margin:0}
@@ -63,22 +61,58 @@ nav a:not(.btn){color:var(--ink);text-decoration:none}
 .lead{margin:28px 0 0;font-size:18px;color:var(--ink-2);max-width:520px}
 .actions{margin-top:36px;display:flex;flex-wrap:wrap;gap:14px}
 .note{margin:18px 0 0;font-size:13px;color:var(--muted)}
-.player-wrap{flex:1 1 380px;min-width:0;display:flex;justify-content:center}
+.player-wrap{flex:1 1 380px;min-width:0;display:flex;flex-direction:column;align-items:center}
 .player{width:100%;max-width:400px;background:var(--green);border-radius:28px;padding:28px;color:#fff}
 .player .label{margin:0;font-size:13px;letter-spacing:.1em;color:var(--green-soft)}
 .player .title{margin:6px 0 0;font-family:var(--display);font-weight:700;font-size:22px;line-height:1.4}
 .player .meta{margin:2px 0 0;font-size:14px;color:var(--green-soft)}
 .chapters{margin:24px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
-.chapters li{display:flex;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:12px;background:var(--green-2)}
-.chapters li span:last-child{color:var(--green-soft)}
+.chapters li{display:flex;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:12px;background:var(--green-2);font-size:15px}
+.chapters li span:last-child{color:var(--green-soft);white-space:nowrap}
 .chapters li.now{background:var(--accent);color:var(--ink);font-weight:700}
 .chapters li.now span:last-child{color:var(--ink)}
 .bar{margin-top:22px;height:6px;border-radius:3px;background:var(--green-2)}
 .bar div{width:38%;height:6px;border-radius:3px;background:var(--accent)}
+.player-link{margin-top:20px;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;background:#fff;color:var(--ink);font-weight:700;font-size:15px;text-decoration:none}
+.player-link:hover{color:var(--ink);background:#F6F5F0}
+.player-note{margin:10px 0 0;font-size:12px;color:var(--muted);text-align:center}
 
 /* features */
 .features{margin-top:48px;display:grid;gap:40px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
 .features h3{margin-top:18px;font-weight:700;font-size:22px}
+
+/* book（今週の1冊） */
+.book-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px}
+.book-head .h2 small{display:block;margin-top:6px;font-size:clamp(17px,1.8vw,21px);font-weight:700;color:var(--ink-2)}
+.book-meta{margin:28px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:10px}
+.book-meta li{padding:6px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:14px}
+.book-meta b{color:var(--green)}
+.book-layout{margin-top:44px;display:grid;gap:28px;grid-template-columns:minmax(0,300px) minmax(0,1fr);align-items:start}
+.toc{position:sticky;top:24px;background:var(--green);color:#fff;border-radius:24px;padding:26px}
+.toc p{margin:0;font-size:13px;letter-spacing:.1em;color:var(--green-soft)}
+.toc ol{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.toc a{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:10px;color:#fff;text-decoration:none;font-size:14px;line-height:1.5}
+.toc a:hover{background:var(--green-2);color:#fff}
+.toc a span:last-child{color:var(--green-soft);white-space:nowrap}
+.toc .total{margin-top:14px;padding-top:14px;border-top:1px solid var(--green-2);font-size:13px;color:var(--green-soft);letter-spacing:0}
+.book-body{display:flex;flex-direction:column;gap:20px}
+.book-body .card{scroll-margin-top:24px}
+.intro{font-size:17px}
+.intro .quote{margin:0 0 14px;padding-left:16px;border-left:4px solid var(--accent);font-family:var(--display);font-weight:700;font-size:20px;line-height:1.6}
+.intro p{margin:0}
+.point{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 20px}
+.point .pnum{grid-row:span 3;font-family:var(--display);font-weight:900;font-size:44px;line-height:1;color:var(--accent)}
+.point .chap{margin:0;font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--green)}
+.point h3{font-weight:700;font-size:22px;line-height:1.45}
+.point p.body{margin:8px 0 0;color:var(--ink-2)}
+.keyword{display:inline-block;margin-top:14px;padding:4px 12px;border-radius:8px;background:var(--green-soft);color:var(--green);font-size:14px;font-weight:700}
+.next{background:var(--ink);color:#fff}
+.next .chap{color:var(--accent)}
+.next h3{margin-top:4px;font-weight:700;font-size:22px}
+.next ul{margin:14px 0 0;padding-left:20px;color:#DCDEE4}
+.next li+li{margin-top:6px}
+.book-cta{margin-top:8px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
+.book-cta p{margin:0;font-size:14px;color:var(--muted)}
 
 /* how */
 .how{background:var(--ink);color:#fff}
@@ -104,6 +138,7 @@ nav a:not(.btn){color:var(--ink);text-decoration:none}
 figure{margin:0}
 blockquote{margin:0;font-size:17px}
 figcaption{margin-top:16px;font-size:14px;color:var(--muted)}
+.voice-note{margin:14px 0 0;font-size:13px;font-weight:700;color:var(--green)}
 .faq{max-width:860px}
 dl{margin:40px 0 0}
 dl > div{padding:22px 0;border-top:1px solid var(--line)}
@@ -119,11 +154,22 @@ dd{margin:8px 0 0;color:var(--ink-2)}
 #signup-form{margin:32px auto 0;max-width:520px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
 #signup-form input{flex:1 1 260px;min-height:52px;padding:0 20px;border-radius:999px;border:none;font-size:16px;font-family:inherit;color:var(--ink)}
 #signup-form button{min-height:52px;font-size:16px;border:none}
+.cta-box .test-note{margin-top:18px;font-size:13px;line-height:1.7;color:#CFE0D8;max-width:560px}
+.cta-box .plan-note{display:none;margin-top:12px;font-size:14px;font-weight:700;color:var(--accent)}
 .thanks{display:none;margin-top:24px !important;font-weight:700;color:#fff !important}
 
 footer{border-top:1px solid var(--line-2)}
 .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:32px;padding-bottom:32px;font-size:13px;color:var(--muted)}
 .foot b{font-family:var(--display);font-weight:900;letter-spacing:.08em;color:var(--ink)}
+
+@media (max-width:820px){
+  .book-layout{grid-template-columns:minmax(0,1fr)}
+  .toc{position:static}
+}
+@media (max-width:520px){
+  .point{grid-template-columns:minmax(0,1fr)}
+  .point .pnum{grid-row:auto;font-size:36px}
+}
 </style>
 </head>
 <body>
@@ -139,10 +185,11 @@ footer{border-top:1px solid var(--line-2)}
     </a>
     <nav aria-label="メインメニュー">
       <a href="#features">特長</a>
+      <a href="#book" data-cta="nav_book">今週の1冊</a>
       <a href="#how">使い方</a>
       <a href="#pricing">料金</a>
       <a href="#faq">よくある質問</a>
-      <a class="btn btn-dark" href="#cta" data-cta="header_trial">14日間無料で試す</a>
+      <a class="btn btn-dark" href="#cta" data-cta="header_trial" data-plan="standard">14日間無料で試す</a>
     </nav>
   </div>
 </header>
@@ -152,26 +199,28 @@ footer{border-top:1px solid var(--line-2)}
   <div class="hero-copy">
     <p class="pill">忙しい20〜30代ビジネスパーソンへ</p>
     <h1>ビジネス書は、<br>目次から読めばいい。</h1>
-    <p class="lead">MOKUJIは、話題のビジネス書を「目次」単位で要約し、1冊15分の音声で届ける読書サブスクです。通勤中に、要点だけを。気になった章だけを深く。</p>
+    <p class="lead">MOKUJIは、話題のビジネス書や名著を「目次」単位で要約し、1冊15分の音声で届ける読書サブスクです。通勤中に、要点だけを。気になった章だけを深く。</p>
     <div class="actions">
-      <a class="btn btn-accent" href="#cta" data-cta="hero_trial">14日間無料で試す</a>
-      <a class="btn btn-outline" href="#how" data-cta="hero_how">使い方を見る</a>
+      <a class="btn btn-accent" href="#cta" data-cta="hero_trial" data-plan="standard">14日間無料で試す</a>
+      <a class="btn btn-outline" href="#book" data-cta="hero_book">無料公開中の1冊を読む</a>
     </div>
     <p class="note">無料期間中に解約すれば料金はかかりません</p>
   </div>
   <div class="player-wrap">
     <div class="player">
       <p class="label">いま聴いている本</p>
-      <p class="title">[書籍タイトル]</p>
-      <p class="meta">[著者名]　・　全6章　・　15分</p>
+      <p class="title">学問のすゝめ</p>
+      <p class="meta">福澤諭吉　・　全6章　・　15分</p>
       <ol class="chapters">
-        <li><span>第1章　問いを立てる</span><span>2:30</span></li>
-        <li class="now"><span>第2章　仮説で動く</span><span>再生中</span></li>
-        <li><span>第3章　数字で語る</span><span>2:10</span></li>
-        <li><span>第4章　人を巻き込む</span><span>2:45</span></li>
+        <li><span>はじめに　有名な一文の「続き」</span><span>1:30</span></li>
+        <li class="now"><span>第1章　天は人の上に人を造らず</span><span>再生中</span></li>
+        <li><span>第2章　学ぶ人と学ばない人の差</span><span>2:30</span></li>
+        <li><span>第3章　一身独立して一国独立す</span><span>3:00</span></li>
       </ol>
       <div class="bar"><div></div></div>
+      <a class="player-link" href="#book" data-cta="hero_player_read"><span>要約をテキストで読む（3分）</span><span aria-hidden="true">→</span></a>
     </div>
+    <p class="player-note">※ サンプル画面です</p>
   </div>
 </section>
 
@@ -211,6 +260,90 @@ footer{border-top:1px solid var(--line-2)}
   </div>
 </section>
 
+<!-- ===== 今週の1冊：学問のすゝめ ===== -->
+<section id="book" class="section sand">
+  <div class="wrap">
+    <div class="book-head">
+      <div>
+        <p class="eyebrow">FREE SAMPLE｜今週の1冊</p>
+        <h2 class="h2">15分でわかる『学問のすゝめ』（福澤諭吉）<small>現代のビジネスパーソンが学ぶべき「自立」の教科書</small></h2>
+      </div>
+    </div>
+    <ul class="book-meta">
+      <li><b>著者</b>　福澤諭吉</li>
+      <li><b>ジャンル</b>　キャリア・仕事術 / 古典名著</li>
+      <li><b>所要時間</b>　聴く時間 15分 / 読む時間 3分</li>
+    </ul>
+
+    <div class="book-layout">
+      <aside class="toc" aria-label="この本の目次">
+        <p>MOKUJI ── この本の目次</p>
+        <ol>
+          <li><a href="#book-intro" data-cta="toc_intro"><span>はじめに　有名な一文の「続き」</span><span>1:30</span></a></li>
+          <li><a href="#point-1" data-cta="toc_ch1"><span>第1章　天は人の上に人を造らず</span><span>2:30</span></a></li>
+          <li><a href="#point-1" data-cta="toc_ch2"><span>第2章　学ぶ人と学ばない人の差</span><span>2:30</span></a></li>
+          <li><a href="#point-2" data-cta="toc_ch3"><span>第3章　一身独立して一国独立す</span><span>3:00</span></a></li>
+          <li><a href="#point-3" data-cta="toc_ch4"><span>第4章　実学のすすめ</span><span>3:00</span></a></li>
+          <li><a href="#book-next" data-cta="toc_summary"><span>まとめ　明日から何を変えるか</span><span>2:30</span></a></li>
+        </ol>
+        <p class="total">全6章・合計15分（このページは要点を3分で読めるテキスト版です）</p>
+      </aside>
+
+      <article class="book-body">
+        <div id="book-intro" class="card intro">
+          <p class="quote">「天は人の上に人を造らず、人の下に人を造らず」</p>
+          <p>——あまりにも有名なこの一文には、実は「でも、学んだ人と学ばない人の間には圧倒的な差がつく」という厳しい続きがあります。明治時代に書かれたベストセラー『学問のすゝめ』から、変化の激しい現代を生き抜くビジネスパーソンに必要な「自立と学びの本質」を15分でわかりやすく解説します。</p>
+        </div>
+
+        <div id="point-1" class="card point">
+          <p class="pnum" aria-hidden="true">1</p>
+          <p class="chap">要点 1 ／ 第1〜2章</p>
+          <h3>「天は人の上に人を造らず」の本当の意味</h3>
+          <div>
+            <p class="body">生まれつき賢い人・愚かな人の差はないが、学問をしたかしないかで豊かな人と貧しい人の差が生まれる。現代のビジネスにおける「入社時は同じスタートラインだが、日々の学びを続けるかで市場価値に大きな差がつく」という事実と同じです。</p>
+            <span class="keyword">キーワード：学ぶか、学ばないか</span>
+          </div>
+        </div>
+
+        <div id="point-2" class="card point">
+          <p class="pnum" aria-hidden="true">2</p>
+          <p class="chap">要点 2 ／ 第3章</p>
+          <h3>会社や組織に依存しない「独立自尊」の働き方</h3>
+          <div>
+            <p class="body">「一身独立して一国独立す」。誰かや組織に頼りきりの状態から抜け出し、自分の頭で考え、自分の力で稼ぎ、自分の責任で判断すること。終身雇用が当たり前ではなくなった現代において、「どこでも通用する個人の力」をつけることは福澤諭吉が説いた自立そのものです。</p>
+            <span class="keyword">キーワード：一身独立して一国独立す</span>
+          </div>
+        </div>
+
+        <div id="point-3" class="card point">
+          <p class="pnum" aria-hidden="true">3</p>
+          <p class="chap">要点 3 ／ 第4章</p>
+          <h3>明日から使える「実学（じつがく）」のすすめ</h3>
+          <div>
+            <p class="body">机上の空論を覚えるだけの勉強ではなく、日常の仕事や生活ですぐに役立つ生きた知識＝「実学」を重視しました。「今の仕事にどう活かせるか？」「明日から何を変えるか？」という視点で学ぶことが本当の意味での学問です。</p>
+            <span class="keyword">キーワード：実学</span>
+          </div>
+        </div>
+
+        <div id="book-next" class="card next">
+          <p class="chap">まとめ</p>
+          <h3>明日から何を変えるか</h3>
+          <ul>
+            <li>今週、自分の市場価値を上げるために学ぶテーマを1つ決める</li>
+            <li>会社の看板がなくても通用する自分の力は何か、書き出してみる</li>
+            <li>読んだ・聴いた内容は「明日の仕事でどう使うか」まで1行でメモする</li>
+          </ul>
+        </div>
+
+        <div class="book-cta">
+          <a class="btn btn-accent" href="#cta" data-cta="book_trial" data-plan="standard">続きを音声で聴く（14日間無料）</a>
+          <p>アプリでは各章を2〜3分の音声で、気になる章からつまみ聴きできます。</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
 <section id="how" class="section how">
   <div class="wrap">
     <p class="eyebrow">HOW IT WORKS</p>
@@ -232,19 +365,19 @@ footer{border-top:1px solid var(--line-2)}
         <p class="plan-name">ライト</p>
         <p class="price">¥680<small>／月</small></p>
         <ul><li>毎月5冊まで聴き放題</li><li>倍速・オフライン再生</li></ul>
-        <a class="btn btn-outline" href="#cta" data-cta="pricing_light">ライトで始める</a>
+        <a class="btn btn-outline" href="#cta" data-cta="pricing_light" data-plan="light">ライトで始める</a>
       </div>
       <div class="plan pop">
         <p class="plan-name">スタンダード<span class="badge">いちばん人気</span></p>
         <p class="price">¥1,280<small>／月</small></p>
         <ul><li>全タイトル聴き放題</li><li>職種別おすすめ（毎週3冊）</li><li>聴いた内容の自動メモ</li></ul>
-        <a class="btn btn-accent" href="#cta" data-cta="pricing_standard">14日間無料で試す</a>
+        <a class="btn btn-accent" href="#cta" data-cta="pricing_standard" data-plan="standard">14日間無料で試す</a>
       </div>
       <div class="plan">
         <p class="plan-name">チーム</p>
         <p class="price">¥980<small>／人・月</small></p>
         <ul><li>スタンダードの全機能</li><li>チーム内での本棚共有</li><li>5名から導入可能</li></ul>
-        <a class="btn btn-outline" href="#cta" data-cta="pricing_team">資料をダウンロード</a>
+        <a class="btn btn-outline" href="#cta" data-cta="pricing_team" data-plan="team">導入について問い合わせる</a>
       </div>
     </div>
   </div>
@@ -252,12 +385,12 @@ footer{border-top:1px solid var(--line-2)}
 
 <section class="section sand">
   <div class="wrap">
-    <p class="eyebrow">VOICE</p>
-    <h2 class="h2">利用者の声</h2>
+    <p class="eyebrow">USE CASES</p>
+    <h2 class="h2">こんな使い方ができます</h2>
     <div class="grid">
-      <figure class="card"><blockquote>「片道40分の通勤が、毎朝1冊分の学びの時間になりました。」</blockquote><figcaption>法人営業・28歳</figcaption></figure>
-      <figure class="card"><blockquote>「会議の前に関係する章だけ聴けるので、議論の引き出しが増えました。」</blockquote><figcaption>マーケティング・32歳</figcaption></figure>
-      <figure class="card"><blockquote>「チームで同じ本を聴いて、週1回の朝会で感想を共有しています。」</blockquote><figcaption>マネージャー・36歳</figcaption></figure>
+      <div class="card"><p class="card-title">通勤時間を、読書時間に</p><p class="sub">片道の通勤や移動のあいだに、1冊分の要点をインプット。毎朝の習慣にできます。</p><p class="voice-note">営業・外回りが多い方に</p></div>
+      <div class="card"><p class="card-title">会議の前に、関係する章だけ</p><p class="sub">テーマに関わる章だけを聴いてから会議へ。議論の引き出しを手早く増やせます。</p><p class="voice-note">企画・マーケティング職の方に</p></div>
+      <div class="card"><p class="card-title">チームで同じ1冊を</p><p class="sub">メンバーで同じ本を聴いて、朝会や1on1で感想を共有。学びをチームの共通言語に。</p><p class="voice-note">マネージャー・チームリーダーの方に</p></div>
     </div>
   </div>
 </section>
@@ -268,7 +401,7 @@ footer{border-top:1px solid var(--line-2)}
     <h2 class="h2">よくある質問</h2>
     <dl>
       <div><dt>Q. 無料期間が終わると自動で課金されますか？</dt><dd>はい。無料期間終了日の前日までにアプリの設定画面から解約すれば、料金は一切かかりません。</dd></div>
-      <div><dt>Q. どんな本が聴けますか？</dt><dd>ビジネス・自己啓発・テクノロジーを中心に、[収録冊数]冊以上を収録しています。毎週新しいタイトルを追加しています。</dd></div>
+      <div><dt>Q. どんな本が聴けますか？</dt><dd>ビジネス・自己啓発・テクノロジーを中心に、まずは厳選した名著から順次公開中です。第1弾は福澤諭吉『<a href="#book" data-cta="faq_book">学問のすゝめ</a>』。今後も毎週新しいタイトルを追加していきます。</dd></div>
       <div><dt>Q. 要約だけで本当に身につきますか？</dt><dd>MOKUJIは「全部読む前の地図」として設計しています。気になった章は原書の該当ページへすぐ移動できるので、深く読みたい部分にだけ時間を使えます。</dd></div>
     </dl>
   </div>
@@ -283,9 +416,11 @@ footer{border-top:1px solid var(--line-2)}
       <form id="signup-form" name="mokuji-trial-signup">
         <label class="sr-only" for="email">メールアドレス</label>
         <input id="email" name="email" type="email" autocomplete="email" placeholder="メールアドレス" required>
-        <button class="btn btn-accent" type="submit">無料で始める</button>
+        <button id="signup-button" class="btn btn-accent" type="submit">無料で始める</button>
       </form>
-      <p class="thanks" id="thanks" role="status">ご登録ありがとうございます。確認メールをお送りしました。</p>
+      <p class="plan-note" id="plan-note" role="status">チームプラン（5名〜）の導入について、担当者よりご連絡いたします</p>
+      <p class="test-note">※ 無料期間中に解約すれば料金はかかりません</p>
+      <p class="thanks" id="thanks" role="status">ご登録ありがとうございます！確認メールをお送りしました。</p>
     </div>
   </div>
 </section>
@@ -294,7 +429,7 @@ footer{border-top:1px solid var(--line-2)}
 <footer>
   <div class="wrap foot">
     <b>MOKUJI</b>
-    <span>※ マーケティング練習用の架空のサービスです</span>
+    <span>&copy; MOKUJI</span>
   </div>
 </footer>
 
@@ -302,25 +437,48 @@ footer{border-top:1px solid var(--line-2)}
   // ===== GTM用のイベント送信（GA4のイベントとして計測する） =====
   window.dataLayer = window.dataLayer || [];
 
+  // どのプランのボタンから来たか（フォーム送信時に一緒に送る）
+  var selectedPlan = 'none';
+  var signupButton = document.getElementById('signup-button');
+  var planNote = document.getElementById('plan-note');
+
+  function setPlan(plan) {
+    selectedPlan = plan;
+    if (plan === 'team') {
+      signupButton.textContent = '問い合わせる';
+      planNote.style.display = 'block';
+    } else {
+      signupButton.textContent = '無料で始める';
+      planNote.style.display = 'none';
+    }
+  }
+
   // CTAクリック：どのボタンが押されたかを cta_id で送る
   document.querySelectorAll('[data-cta]').forEach(function (el) {
     el.addEventListener('click', function () {
-      window.dataLayer.push({ event: 'cta_click', cta_id: el.dataset.cta, cta_text: el.textContent.trim() });
+      if (el.dataset.plan) setPlan(el.dataset.plan);
+      window.dataLayer.push({
+        event: 'cta_click',
+        cta_id: el.dataset.cta,
+        cta_text: el.textContent.trim(),
+        plan: el.dataset.plan || ''
+      });
     });
   });
 
-  // フォーム送信：GA4推奨イベント generate_lead
+  // フォーム送信：GA4推奨イベント generate_lead（plan付き）
   var form = document.getElementById('signup-form');
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    window.dataLayer.push({ event: 'generate_lead', form_id: 'mokuji-trial-signup' });
+    window.dataLayer.push({ event: 'generate_lead', form_id: 'mokuji-trial-signup', plan: selectedPlan });
     form.style.display = 'none';
+    planNote.style.display = 'none';
     document.getElementById('thanks').style.display = 'block';
   });
 </script>
 
-<!-- ===== HubSpot トラッキングコード（株式会社 meeting technology / Hub ID 49098911） ===== -->
-<script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/49098911.js"></script>
-<!-- ===== End HubSpot ===== -->
+<!-- HubSpot トラッキングコード -->
+<script type="text/javascript" id="hs-script-loader" async defer src="https://js-na2.hs-scripts.com/49098911.js"></script>
+<!-- End HubSpot -->
 </body>
 </html>
